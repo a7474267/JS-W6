@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
@@ -8,7 +7,23 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: () => import('../views/Home.vue'),
+    children: [
+      {
+        path: 'products',
+        name: '產品列表',
+        component: () => import('../views/Products.vue')
+      },
+      {
+        path: '',
+        component: () => import('../views/Index.vue')
+      },
+      {
+        path: 'cart',
+        name: '購物車',
+        component: () => import('../views/Cart.vue')
+      }
+    ]
   },
   {
     path: '/about',
@@ -17,6 +32,23 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: () => import('../views/Dashboard.vue'),
+    children: [
+      {
+        path: 'orders',
+        name: 'orders',
+        component: () => import('../views/Dashboard/Orders.vue')
+      },
+      {
+        path: 'products',
+        name: 'products',
+        component: () => import('../views/Dashboard/Products.vue')
+      }
+    ]
   }
 ]
 
