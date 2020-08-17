@@ -22,6 +22,11 @@ const routes = [
         path: 'cart',
         name: '購物車',
         component: () => import('../views/Cart.vue')
+      },
+      {
+        path: 'product/:id',
+        name: '單一產品頁面',
+        component: () => import('../views/Product.vue')
       }
     ]
   },
